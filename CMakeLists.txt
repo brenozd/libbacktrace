@@ -239,7 +239,7 @@ if(NOT MSVC)
     -Wmissing-format-attribute
     -Wcast-qual
     -Wno-attributes
-    -Wno-unknown-attributes
+    # -Wno-unknown-attributes
     -Wpointer-arith)
   if(NOT DISABLE_WERROR)
     list(APPEND WARNING_FLAGS -Werror)
