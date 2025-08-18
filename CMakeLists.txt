@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.20)
 
 project(
   libbacktrace
@@ -457,8 +457,13 @@ else()
                                           fmt_${PROGRAM_ARCH} iomem_sys>)
 endif()
 
+include(CheckPIESupported)
+check_pie_supported()
+set_property(TARGET backtrace PROPERTY POSITION_INDEPENDENT_CODE TRUE)
+
 target_include_directories(
-  backtrace PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}> $<INSTALL_INTERFACE:include>)
+  backtrace PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
+                   $<INSTALL_INTERFACE:include>)
 
 configure_package_config_file(
   libbacktrace-config.cmake.in ${GENERATED_CONFIGS}/libbacktrace-config.cmake
